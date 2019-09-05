@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles'
-import {AppBar, Container, Button, Grid, Card, CardHeader, IconButton} from '@material-ui/core';
+import {AppBar, Container, Button, Grid, Card, CardHeader, IconButton, CardContent} from '@material-ui/core';
 import {Close} from '@material-ui/icons'
 
 const styles = theme => ({
@@ -40,6 +40,11 @@ class Dashboard extends Component {
                     title="Shrimp and Chorizo Paella"
                     subheader="September 14, 2016"
                   />
+                  <CardContent>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora repellendus voluptas sunt harum sequi fuga, nemo quae rem obcaecati magni, nostrum laboriosam ea et, in quo aperiam quas tenetur sapiente.</p>
+                    <p>referrence</p>
+                    <a href="https://www.youtube.com/watch?v=ALj5MKjy2BU">https://www.youtube.com/watch?v=ALj5MKjy2BU</a>
+                  </CardContent>
                   </Card>
               </Grid>
             </Grid>

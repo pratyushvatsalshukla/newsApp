@@ -10,7 +10,7 @@ body {
   padding: 20px; }
 
 .newsContainer {
-  background-color: blue; }
+  text-align: left; }
 
 .filterBox {
   background-color: crimson; }
