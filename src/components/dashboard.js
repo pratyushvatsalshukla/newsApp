@@ -1,19 +1,36 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles'
-import {AppBar, Container, Button, Grid, Card, CardHeader, IconButton, CardContent} from '@material-ui/core';
-import {Close} from '@material-ui/icons'
+import {AppBar, Container, Button, Grid, Card, CardHeader, IconButton, CardContent, MenuItem, TextField} from '@material-ui/core';
+import {Close, Replay} from '@material-ui/icons'
 
 const styles = theme => ({
   root : {
     textAlign: 'left'
+  },
+  menu: {
+    width: 200,
+  },
+  textField:{
+    width:200
   }
 });
 
 
 class Dashboard extends Component {
 
+  state = {
+    language: ''
+  }
+
+  handleChange = name => event => {
+    this.setState({ 
+      [name]: event.target.value 
+    })
+  };
+
   render(){
     const {classes} = this.props
+    const values = this.state
     return (
         <div className='Dashboard'>
             <AppBar position="static" color="default" className='appBar'>
@@ -26,14 +43,46 @@ class Dashboard extends Component {
             <Container>
             <Grid container spacing={2} className='content' >
               <Grid item xs={4} className='filterBox' >
-                h1
+                <Card>
+                  <CardHeader
+                      action={
+                        <IconButton aria-label="replay" onClick={this.handleReset} >
+                          <Replay />
+                        </IconButton>
+                      }
+                      title="Filter"
+                    /> 
+                    <CardContent>
+                    <TextField
+                        id="filled-select-currency"
+                        select
+                        label="Language "
+                        className={classes.textField}
+                        value={values.language}
+                        onChange={this.handleChange('language')}
+                        SelectProps={{
+                          MenuProps: {
+                            className: classes.menu,
+                          },
+                        }}
+                        // margin="normal"
+                        // variant="filled"
+                      >
+                        {['japanese', 'korean', 'hindi'].map(option => (
+                          <MenuItem key={option} value={option}>
+                            {option}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+                    </CardContent>
+                </Card>
               </Grid>
 
               <Grid item xs={8} className='newsContainer' >
                 <Card>
                   <CardHeader
                     action={
-                      <IconButton aria-label="settings">
+                      <IconButton aria-label="close">
                         <Close />
                       </IconButton>
                     }
