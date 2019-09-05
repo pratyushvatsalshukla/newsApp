@@ -19,7 +19,10 @@ const styles = theme => ({
 class Dashboard extends Component {
 
   state = {
-    language: ''
+    language: '',
+    country: '',
+    startdate: '',
+    enddate: ''
   }
 
   handleChange = name => event => {
@@ -54,7 +57,6 @@ class Dashboard extends Component {
                     /> 
                     <CardContent>
                     <TextField
-                        id="filled-select-currency"
                         select
                         label="Language "
                         className={classes.textField}
@@ -74,6 +76,50 @@ class Dashboard extends Component {
                           </MenuItem>
                         ))}
                       </TextField>
+                      <TextField
+                        select
+                        label="Country "
+                        className={classes.textField}
+                        value={values.country}
+                        onChange={this.handleChange('country')}
+                        SelectProps={{
+                          MenuProps: {
+                            className: classes.menu,
+                          },
+                        }}
+                        // margin="normal"
+                        // variant="filled"
+                      >
+                        {['japanese', 'korean', 'hindi'].map(option => (
+                          <MenuItem key={option} value={option}>
+                            {option}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+                      <TextField
+                        // id="date"
+                        label="Start Date"
+                        type="date"
+                        // defaultValue="2017-05-24"
+                        className={classes.textField}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        value = {values.startdate}
+                        onChange={this.handleChange('startdate')}
+                      />
+                      <TextField
+                        // id="date"
+                        label="End Date"
+                        type="date"
+                        // defaultValue="2017-05-24"
+                        className={classes.textField}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        value = {values.enddate}
+                        onChange={this.handleChange('enddate')}
+                      />
                     </CardContent>
                 </Card>
               </Grid>
