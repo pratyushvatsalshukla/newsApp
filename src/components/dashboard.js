@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles'
-import {AppBar, Container, Button, Grid, Card, CardHeader, IconButton, CardContent, MenuItem, TextField} from '@material-ui/core';
+import {AppBar, Container, Button, Grid, Card, CardHeader, IconButton, CardContent, MenuItem, TextField, CardActions} from '@material-ui/core';
 import {Close, Replay} from '@material-ui/icons'
 
 const styles = theme => ({
@@ -127,6 +127,11 @@ class Dashboard extends Component {
                         onChange={this.handleChange('enddate')}
                       />
                     </CardContent>
+                    <CardActions>
+                      <Button size="small" color="primary">
+                        Show news
+                      </Button>
+                    </CardActions>
                 </Card>
               </Grid>
 
