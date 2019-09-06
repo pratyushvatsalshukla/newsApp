@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios'
 import { withStyles } from '@material-ui/core/styles'
 import {AppBar, Container, Button, Grid, Card, CardHeader, IconButton, CardContent, MenuItem, TextField, CardActions} from '@material-ui/core';
 import {Close, Replay} from '@material-ui/icons'
@@ -33,8 +34,18 @@ class Dashboard extends Component {
 
   handleClose =  (e)=>{
     e.persist();
-    console.log(e.target.parentElement.parentElement.parentElement.parentElement.parentElement.classList)
     e.target.parentElement.parentElement.parentElement.parentElement.parentElement.classList += ' remove'
+  }
+
+  UNSAFE_componentWillMount(){
+    console.log('I am mounting')
+    const API_KEY = 'eb-XCIW7hhyBptar_MVH2NmFYQvbqImeKWIkj4NProcfib6S'
+    const url = 'https://api.currentsapi.services/v1/latest-news?' +
+    'language=us&' +
+    'apiKey='+ API_KEY
+    axios.get(url).then(resp => {
+      console.log(resp)
+    })
   }
 
   render(){
