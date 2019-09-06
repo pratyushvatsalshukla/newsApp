@@ -12,7 +12,15 @@ body {
 .newsContainer {
   text-align: left; }
 
+.newsContainer > div {
+  transition: all 0.2s ease;
+  height: auto; }
+
 .filterBox {
   text-align: left; }
+
+.remove {
+  height: 0 !important;
+  overflow: hidden; }
 
 /*# sourceMappingURL=index.css.map */

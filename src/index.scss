@@ -17,7 +17,17 @@ body{
     text-align: left;
 }
 
+.newsContainer>div{
+    transition: all 0.2s ease;
+    height: auto;
+}
+
 .filterBox{
     // background-color: crimson;
     text-align: left;
+}
+
+.remove{
+    height: 0 !important;
+    overflow: hidden;
 }

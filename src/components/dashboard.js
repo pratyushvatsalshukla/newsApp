@@ -11,7 +11,7 @@ const styles = theme => ({
     width: 200,
   },
   textField:{
-    width:200
+    width: '100%'
   }
 });
 
@@ -30,6 +30,12 @@ class Dashboard extends Component {
       [name]: event.target.value 
     })
   };
+
+  handleClose =  (e)=>{
+    e.persist();
+    console.log(e.target.parentElement.parentElement.parentElement.parentElement.parentElement.classList)
+    e.target.parentElement.parentElement.parentElement.parentElement.parentElement.classList += ' remove'
+  }
 
   render(){
     const {classes} = this.props
@@ -128,7 +134,7 @@ class Dashboard extends Component {
                 <Card>
                   <CardHeader
                     action={
-                      <IconButton aria-label="close">
+                      <IconButton aria-label="close" onClick={this.handleClose} >
                         <Close />
                       </IconButton>
                     }
