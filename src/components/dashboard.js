@@ -12,7 +12,8 @@ const styles = theme => ({
     width: 200,
   },
   textField:{
-    width: '100%'
+    width: '100%',
+    marginBottom : 20
   }
 });
 
@@ -27,18 +28,6 @@ class Dashboard extends Component {
     news: [],
     availableLang: [],
     availableRegions: []
-  }
-
-  handleChange = name => event => {
-    this.setState({ 
-      [name]: event.target.value 
-    })
-    console.log(name,event.target.value )
-  };
-
-  handleClose =  (e)=>{
-    e.persist();
-    e.target.parentElement.parentElement.parentElement.parentElement.parentElement.classList += ' remove'
   }
 
   componentWillMount(){
@@ -105,6 +94,39 @@ class Dashboard extends Component {
     })
   }
 
+  showLatest = ()=>{
+    const API_KEY = 'eb-XCIW7hhyBptar_MVH2NmFYQvbqImeKWIkj4NProcfib6S'
+    const url = 'https://api.currentsapi.services/v1/latest-news?' +
+    'language='+ this.state.language +
+    '&country='+ this.state.country +
+    '&apiKey='+ API_KEY
+    axios.get(url).then(resp => {
+      console.log(resp)
+      this.setState({
+        news : resp.data.news
+      })
+    })
+  }
+
+  handleChange = name => event => {
+    this.setState({ 
+      [name]: event.target.value 
+    })
+    console.log(name,event.target.value )
+  };
+
+  handleClose =  (e)=>{
+    e.persist();
+    e.target.parentElement.parentElement.parentElement.parentElement.parentElement.classList += ' remove'
+  }
+
+  handleReset = (e)=>{
+    this.setState({
+      language: '',
+      country: ''
+    })
+  }
+
   render(){
     const {classes} = this.props
     const values = this.state
@@ -112,7 +134,7 @@ class Dashboard extends Component {
         <div className='Dashboard'>
             <AppBar position="static" color="default" className='appBar'>
               <Container className={classes.root} >
-                <Button variant="contained">
+                <Button variant="contained" onClick={this.showLatest} >
                   Show Latest News
                 </Button>
               </Container>
