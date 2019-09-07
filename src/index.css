@@ -23,4 +23,25 @@ body {
   height: 0 !important;
   overflow: hidden; }
 
+.newscard {
+  margin-bottom: 20px; }
+
+.newscard .MuiCardContent-root {
+  padding-top: 0 !important; }
+
+.newscard p {
+  margin-top: 0;
+  margin-bottom: 8px; }
+
+.bold {
+  font-weight: bold;
+  text-transform: capitalize; }
+
+.newscard .MuiTypography-colorTextSecondary {
+  color: #b1b1b18a !important;
+  text-transform: uppercase; }
+
+.newscard a {
+  color: #4001ffe3; }
+
 /*# sourceMappingURL=index.css.map */

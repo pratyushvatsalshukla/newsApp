@@ -23,7 +23,8 @@ class Dashboard extends Component {
     language: '',
     country: '',
     startdate: '',
-    enddate: ''
+    enddate: '',
+    news: []
   }
 
   handleChange = name => event => {
@@ -37,14 +38,42 @@ class Dashboard extends Component {
     e.target.parentElement.parentElement.parentElement.parentElement.parentElement.classList += ' remove'
   }
 
-  UNSAFE_componentWillMount(){
+  componentWillMount(){
     console.log('I am mounting')
-    const API_KEY = 'eb-XCIW7hhyBptar_MVH2NmFYQvbqImeKWIkj4NProcfib6S'
+    // const API_KEY = 'ZHfUG_hviBbfXql3BbkCf4d5aTqDWGodXsMHuwAsWrJMcgsT'
+    const API_KEY = 'Hepeon4BxmU-f8ol9DmMrNVRAdIOp0AS7-LzCy5jR7hzerji'
+    // const API_KEY = 'eb-XCIW7hhyBptar_MVH2NmFYQvbqImeKWIkj4NProcfib6S'
     const url = 'https://api.currentsapi.services/v1/latest-news?' +
-    'language=us&' +
+    // 'language=us&' +
     'apiKey='+ API_KEY
     axios.get(url).then(resp => {
       console.log(resp)
+      this.setState({
+        news : resp.data.news
+      })
+    })
+  }
+
+  renderNews(){
+    return this.state.news.map((news)=>{
+      return (
+        <Card key={news.id} className='newscard' >
+          <CardHeader
+            action={
+              <IconButton aria-label="close" onClick={this.handleClose} >
+                <Close />
+              </IconButton>
+            }
+            title={news.title}
+            subheader={`${news.author} | ${news.published}`}
+          />
+          <CardContent>
+            <p>{news.description}</p>
+            <p className='bold' >referrence</p>
+            <a href={news.url} >{news.url}</a>
+          </CardContent>
+        </Card>
+      )
     })
   }
 
@@ -147,22 +176,23 @@ class Dashboard extends Component {
               </Grid>
 
               <Grid item xs={8} className='newsContainer' >
-                <Card>
-                  <CardHeader
-                    action={
-                      <IconButton aria-label="close" onClick={this.handleClose} >
-                        <Close />
-                      </IconButton>
-                    }
-                    title="Shrimp and Chorizo Paella"
-                    subheader="September 14, 2016"
-                  />
-                  <CardContent>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora repellendus voluptas sunt harum sequi fuga, nemo quae rem obcaecati magni, nostrum laboriosam ea et, in quo aperiam quas tenetur sapiente.</p>
-                    <p>referrence</p>
-                    <a href="https://www.youtube.com/watch?v=ALj5MKjy2BU">https://www.youtube.com/watch?v=ALj5MKjy2BU</a>
-                  </CardContent>
-                  </Card>
+              {/* <Card className='newscard' >
+                <CardHeader
+                  action={
+                    <IconButton aria-label="close" onClick={this.handleClose} >
+                      <Close />
+                    </IconButton>
+                  }
+                  title='hello'
+                  subheader='hiiiiiiiii'
+                />
+                <CardContent>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis fuga sint voluptas eos odio debitis beatae? Et maxime repellat ad, hic eos reprehenderit deleniti quos, ut ducimus laborum qui placeat?</p>
+                  <p className='bold' >referrence</p>
+                  <a href='#'>1234567890</a>
+                </CardContent>
+              </Card> */}
+                {this.renderNews()}
               </Grid>
             </Grid>
             </Container>
