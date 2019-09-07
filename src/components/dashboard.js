@@ -25,7 +25,8 @@ class Dashboard extends Component {
     startdate: '',
     enddate: '',
     news: [],
-    availableLang: []
+    availableLang: [],
+    availableRegions: []
   }
 
   handleChange = name => event => {
@@ -42,23 +43,27 @@ class Dashboard extends Component {
 
   componentWillMount(){
     console.log('I am mounting')
-    // const API_KEY = 'ZHfUG_hviBbfXql3BbkCf4d5aTqDWGodXsMHuwAsWrJMcgsT'
-    const API_KEY = 'Hepeon4BxmU-f8ol9DmMrNVRAdIOp0AS7-LzCy5jR7hzerji'
-    // const API_KEY = 'eb-XCIW7hhyBptar_MVH2NmFYQvbqImeKWIkj4NProcfib6S'
+    const API_KEY = 'eb-XCIW7hhyBptar_MVH2NmFYQvbqImeKWIkj4NProcfib6S'
     const url = 'https://api.currentsapi.services/v1/latest-news?' +
-    // 'language=us&' +
     'apiKey='+ API_KEY
-    // axios.get(url).then(resp => {
-    //   console.log(resp)
-    //   this.setState({
-    //     news : resp.data.news
-    //   })
-    // })
+    axios.get(url).then(resp => {
+      console.log(resp)
+      this.setState({
+        news : resp.data.news
+      })
+    })
 
     axios.get('https://api.currentsapi.services/v1/available/languages').then(resp =>{
       console.log(resp)
       this.setState({
         availableLang : resp.data.languages
+      })
+    })
+
+    axios.get('https://api.currentsapi.services/v1/available/regions').then(resp =>{
+      console.log(resp)
+      this.setState({
+        availableRegions : resp.data.regions
       })
     })
   }
@@ -83,6 +88,20 @@ class Dashboard extends Component {
           </CardContent>
         </Card>
       )
+    })
+  }
+
+  showNews = ()=>{
+    const API_KEY = 'eb-XCIW7hhyBptar_MVH2NmFYQvbqImeKWIkj4NProcfib6S'
+    const url = 'https://api.currentsapi.services/v1/search?' +
+    'language='+ this.state.language +
+    '&country='+ this.state.country +
+    '&apiKey='+ API_KEY
+    axios.get(url).then(resp => {
+      console.log(resp)
+      this.setState({
+        news : resp.data.news
+      })
     })
   }
 
@@ -122,24 +141,12 @@ class Dashboard extends Component {
                             className: classes.menu,
                           },
                         }}
-                        // margin="normal"
-                        // variant="filled"
                       >
-                        {/* {this.state.availableLang && this.state.availableLang.map(option => (
-                          <MenuItem key={option} value={option}>
-                            {option}
-                          </MenuItem>
-                        ))} */}
-
-
                         {this.state.availableLang && Object.entries(this.state.availableLang).map((option, index) => (
                           <MenuItem key={index} value={option[1]}>
                             {option[0]}
                           </MenuItem>
                         ))}
-
-
-
                       </TextField>
                       <TextField
                         select
@@ -152,16 +159,14 @@ class Dashboard extends Component {
                             className: classes.menu,
                           },
                         }}
-                        // margin="normal"
-                        // variant="filled"
                       >
-                        {['japanese', 'korean', 'hindi'].map(option => (
-                          <MenuItem key={option} value={option}>
-                            {option}
+                        {this.state.availableRegions && Object.entries(this.state.availableRegions).map((option, index) => (
+                          <MenuItem key={index} value={option[1]}>
+                            {option[0]}
                           </MenuItem>
                         ))}
                       </TextField>
-                      <TextField
+                      {/* <TextField
                         // id="date"
                         label="Start Date"
                         type="date"
@@ -184,10 +189,10 @@ class Dashboard extends Component {
                         }}
                         value = {values.enddate}
                         onChange={this.handleChange('enddate')}
-                      />
+                      /> */}
                     </CardContent>
                     <CardActions>
-                      <Button size="small" color="primary">
+                      <Button size="small" color="primary" onClick={this.showNews} >
                         Show news
                       </Button>
                     </CardActions>
@@ -195,22 +200,6 @@ class Dashboard extends Component {
               </Grid>
 
               <Grid item xs={8} className='newsContainer' >
-              {/* <Card className='newscard' >
-                <CardHeader
-                  action={
-                    <IconButton aria-label="close" onClick={this.handleClose} >
-                      <Close />
-                    </IconButton>
-                  }
-                  title='hello'
-                  subheader='hiiiiiiiii'
-                />
-                <CardContent>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis fuga sint voluptas eos odio debitis beatae? Et maxime repellat ad, hic eos reprehenderit deleniti quos, ut ducimus laborum qui placeat?</p>
-                  <p className='bold' >referrence</p>
-                  <a href='#'>1234567890</a>
-                </CardContent>
-              </Card> */}
                 {this.renderNews()}
               </Grid>
             </Grid>
