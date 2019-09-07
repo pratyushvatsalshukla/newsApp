@@ -24,13 +24,15 @@ class Dashboard extends Component {
     country: '',
     startdate: '',
     enddate: '',
-    news: []
+    news: [],
+    availableLang: []
   }
 
   handleChange = name => event => {
     this.setState({ 
       [name]: event.target.value 
     })
+    console.log(name,event.target.value )
   };
 
   handleClose =  (e)=>{
@@ -46,10 +48,17 @@ class Dashboard extends Component {
     const url = 'https://api.currentsapi.services/v1/latest-news?' +
     // 'language=us&' +
     'apiKey='+ API_KEY
-    axios.get(url).then(resp => {
+    // axios.get(url).then(resp => {
+    //   console.log(resp)
+    //   this.setState({
+    //     news : resp.data.news
+    //   })
+    // })
+
+    axios.get('https://api.currentsapi.services/v1/available/languages').then(resp =>{
       console.log(resp)
       this.setState({
-        news : resp.data.news
+        availableLang : resp.data.languages
       })
     })
   }
@@ -116,11 +125,21 @@ class Dashboard extends Component {
                         // margin="normal"
                         // variant="filled"
                       >
-                        {['japanese', 'korean', 'hindi'].map(option => (
+                        {/* {this.state.availableLang && this.state.availableLang.map(option => (
                           <MenuItem key={option} value={option}>
                             {option}
                           </MenuItem>
+                        ))} */}
+
+
+                        {this.state.availableLang && Object.entries(this.state.availableLang).map((option, index) => (
+                          <MenuItem key={index} value={option[1]}>
+                            {option[0]}
+                          </MenuItem>
                         ))}
+
+
+
                       </TextField>
                       <TextField
                         select
