@@ -32,7 +32,8 @@ class Dashboard extends Component {
 
   componentWillMount(){
     console.log('I am mounting')
-    const API_KEY = 'eb-XCIW7hhyBptar_MVH2NmFYQvbqImeKWIkj4NProcfib6S'
+    // const API_KEY = 'eb-XCIW7hhyBptar_MVH2NmFYQvbqImeKWIkj4NProcfib6S'
+    const API_KEY = 'EztFZDtAe7qk6AiJL-ZWznT2FW7WlNksKDmbRZFFCL2CUv-8'
     const url = 'https://api.currentsapi.services/v1/latest-news?' +
     'apiKey='+ API_KEY
     axios.get(url).then(resp => {
@@ -81,7 +82,8 @@ class Dashboard extends Component {
   }
 
   showNews = ()=>{
-    const API_KEY = 'eb-XCIW7hhyBptar_MVH2NmFYQvbqImeKWIkj4NProcfib6S'
+    const API_KEY = 'EztFZDtAe7qk6AiJL-ZWznT2FW7WlNksKDmbRZFFCL2CUv-8'
+    // const API_KEY = 'eb-XCIW7hhyBptar_MVH2NmFYQvbqImeKWIkj4NProcfib6S'
     const url = 'https://api.currentsapi.services/v1/search?' +
     'language='+ this.state.language +
     '&country='+ this.state.country +
@@ -95,7 +97,8 @@ class Dashboard extends Component {
   }
 
   showLatest = ()=>{
-    const API_KEY = 'eb-XCIW7hhyBptar_MVH2NmFYQvbqImeKWIkj4NProcfib6S'
+    // const API_KEY = 'eb-XCIW7hhyBptar_MVH2NmFYQvbqImeKWIkj4NProcfib6S'
+    const API_KEY = 'EztFZDtAe7qk6AiJL-ZWznT2FW7WlNksKDmbRZFFCL2CUv-8'
     const url = 'https://api.currentsapi.services/v1/latest-news?' +
     'language='+ this.state.language +
     '&country='+ this.state.country +
@@ -222,7 +225,15 @@ class Dashboard extends Component {
               </Grid>
 
               <Grid item xs={8} className='newsContainer' >
-                {this.renderNews()}
+                {
+                  this.state.news[0] ? 
+                  this.renderNews() : 
+                  <Card>
+                    <CardHeader
+                      subheader="Loading..."
+                    /> 
+                  </Card>
+                }
               </Grid>
             </Grid>
             </Container>
